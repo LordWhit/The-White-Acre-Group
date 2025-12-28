@@ -1,41 +1,61 @@
-import { useState } from "react";
+import { Switch, Route } from "wouter";
+import { queryClient } from "./lib/queryClient";
+import { QueryClientProvider } from "@tanstack/react-query";
+import { Toaster } from "@/components/ui/toaster";
+import { TooltipProvider } from "@/components/ui/tooltip";
+import { Navigation } from "@/components/Navigation";
+import { Footer } from "@/components/Footer";
+import NotFound from "@/pages/not-found";
+import Home from "@/pages/Home";
+import About from "@/pages/About";
+import Criteria from "@/pages/Criteria";
+import Approach from "@/pages/Approach";
+import ForOwners from "@/pages/ForOwners";
+import Investors from "@/pages/Investors";
+import Contact from "@/pages/Contact";
+import { useEffect } from "react";
+import { useLocation } from "wouter";
 
-function App() {
-  const [portal, setPortal] = useState<string | null>(null);
+// Scroll to top on route change
+function ScrollToTop() {
+  const [pathname] = useLocation();
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, [pathname]);
+  return null;
+}
 
+function Router() {
   return (
-    <div className="min-h-screen bg-gray-100 flex flex-col items-center justify-center p-4">
-      <h1 className="text-4xl font-bold mb-8">Shepherd Manufacturing</h1>
-      <p className="text-xl mb-4">A White Acre Group Company</p>
-      <p className="text-lg mb-8">Buy, sell, and finance manufacturing businesses — powered by AI matching and valuations.</p>
-      
-      {!portal ? (
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-          <button onClick={() => setPortal("seller")} className="bg-blue-500 text-white p-4 rounded-lg">Seller Portal</button>
-          <button onClick={() => setPortal("buyer")} className="bg-green-500 text-white p-4 rounded-lg">Buyer Portal</button>
-          <button onClick={() => setPortal("investor")} className="bg-purple-500 text-white p-4 rounded-lg">Investor Portal</button>
-          <button onClick={() => setPortal("lender")} className="bg-red-500 text-white p-4 rounded-lg">Lender Portal</button>
-        </div>
-      ) : (
-        <div className="w-full max-w-2xl">
-          <button onClick={() => setPortal(null)} className="mb-4 text-blue-500">Back to Home</button>
-          {portal === "seller" && <SellerPortal />}
-          {portal === "buyer" && <BuyerPortal />}
-          {portal === "investor" && <InvestorPortal />}
-          {portal === "lender" && <LenderPortal />}
-        </div>
-      )}
+    <div className="flex flex-col min-h-screen font-sans">
+      <ScrollToTop />
+      <Navigation />
+      <main className="flex-grow">
+        <Switch>
+          <Route path="/" component={Home} />
+          <Route path="/about" component={About} />
+          <Route path="/criteria" component={Criteria} />
+          <Route path="/approach" component={Approach} />
+          <Route path="/business-owners" component={ForOwners} />
+          <Route path="/investors" component={Investors} />
+          <Route path="/contact" component={Contact} />
+          <Route component={NotFound} />
+        </Switch>
+      </main>
+      <Footer />
     </div>
   );
 }
 
-function SellerPortal() {
-  return <div className="p-4 bg-white rounded shadow">Step-by-step seller process: Upload tax returns, P&L, equipment lists, etc.</div>;
+function App() {
+  return (
+    <QueryClientProvider client={queryClient}>
+      <TooltipProvider>
+        <Router />
+        <Toaster />
+      </TooltipProvider>
+    </QueryClientProvider>
+  );
 }
-
-// Placeholder portals — build these out next
-function BuyerPortal() { return <div className="p-4 bg-white rounded shadow">Browse listings, AI-matched deals.</div>; }
-function InvestorPortal() { return <div className="p-4 bg-white rounded shadow">Investment opportunities, due diligence portal.</div>; }
-function LenderPortal() { return <div className="p-4 bg-white rounded shadow">Review deals for financing, AI risk assessment.</div>; }
 
 export default App;
