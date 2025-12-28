@@ -57,7 +57,7 @@ export default function Contact() {
             <div className="bg-white p-6 rounded-lg border border-border shadow-sm">
               <h4 className="font-serif font-bold text-primary mb-2">Intermediaries</h4>
               <p className="text-sm text-muted-foreground">
-                We value relationships with business brokers, CPAs, and attorneys. We pay standard buy-side fees for introduced deals that close.
+                We value relationships with business brokers, CPAs, and attorneys. We are open to discussing fair arrangements for introduced opportunities, with terms that reflect the size and nature of the business.
               </p>
             </div>
           </div>
