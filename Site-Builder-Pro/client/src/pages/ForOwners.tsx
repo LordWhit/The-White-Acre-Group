@@ -24,8 +24,8 @@ export default function ForOwners() {
                   desc: "We understand that rumors can hurt your business. We operate with strict confidentiality until you are ready to announce."
                 },
                 {
-                  title: "Certainty of Closing",
-                  desc: "We invest our own capital and have committed backing. When we sign an LOI, we have the funds to close. We don't shop your deal around."
+                  title: "Serious and Focused Buyer",
+                  desc: "We approach every opportunity with a clear process and focus on finding the right structure for a successful transition. We don’t waste your time exploring deals we can’t move forward on."
                 },
                 {
                   title: "Legacy Preservation",
