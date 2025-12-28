@@ -6,19 +6,24 @@ export function Footer() {
       <div className="container-padding">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-primary-foreground/10 pb-16">
           <div className="md:col-span-1">
-            <Link href="/" className="flex items-center gap-2 mb-6">
-              <div className="h-8 w-8 bg-white text-primary flex items-center justify-center font-serif font-bold text-xl rounded-sm">
-                A
+            <Link href="/" className="flex items-center gap-3 mb-6">
+              {/* Updated logo mark to "S" for Shepherd */}
+              <div className="h-10 w-10 bg-white text-primary flex items-center justify-center font-serif font-bold text-2xl rounded-sm">
+                S
               </div>
-              <span className="font-serif text-xl font-bold tracking-tight text-white">
-                Acquire & Steward
-              </span>
+              <div>
+                <span className="font-serif text-2xl font-bold tracking-tight text-white block">
+                  Shepherd Manufacturing
+                </span>
+                <span className="text-sm text-primary-foreground/70">
+                  A White Acre Group Company
+                </span>
+              </div>
             </Link>
             <p className="text-primary-foreground/60 text-sm leading-relaxed max-w-xs">
-              Honoring legacy through disciplined acquisition and long-term stewardship of established businesses.
+              We acquire and operate established manufacturing businesses with a focus on long-term preservation, employee wellbeing, and sustainable growth.
             </p>
           </div>
-
           <div>
             <h4 className="font-serif text-lg font-medium mb-6 text-white">Company</h4>
             <ul className="space-y-3 text-sm text-primary-foreground/60">
@@ -27,7 +32,6 @@ export function Footer() {
               <li><Link href="/criteria" className="hover:text-white transition-colors">Investment Criteria</Link></li>
             </ul>
           </div>
-
           <div>
             <h4 className="font-serif text-lg font-medium mb-6 text-white">Partners</h4>
             <ul className="space-y-3 text-sm text-primary-foreground/60">
@@ -36,11 +40,10 @@ export function Footer() {
               <li><Link href="/contact" className="hover:text-white transition-colors">Contact</Link></li>
             </ul>
           </div>
-
           <div>
             <h4 className="font-serif text-lg font-medium mb-6 text-white">Contact</h4>
             <ul className="space-y-3 text-sm text-primary-foreground/60">
-              <li>inquiries@acquireandsteward.com</li>
+              <li>info@thewhiteacregroup.com</li>
               <li>(555) 123-4567</li>
               <li>
                 123 Financial District Blvd<br />
@@ -50,9 +53,9 @@ export function Footer() {
             </ul>
           </div>
         </div>
-        
+       
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-primary-foreground/40">
-          <p>© {new Date().getFullYear()} Acquire & Steward Partners. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} Shepherd Manufacturing. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <span>Privacy Policy</span>
             <span>Terms of Service</span>
