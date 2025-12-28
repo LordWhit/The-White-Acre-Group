@@ -69,18 +69,27 @@ app.use((req, res, next) => {
     res.status(status).json({ message });
   });
 
-  // In production (including Vercel): just serve the built static files
+  // In production (including Vercel): serve the built static files
   if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
     serveStatic(app);
+
+    // Critical: Fallback for React Router (SPA routing)
+    // Sends index.html for any non-API route so React can handle client-side routing
+    app.get("*", (req, res) => {
+      res.sendFile("index.html", {
+        root: "dist",
+        headers: {
+          "Content-Type": "text/html; charset=utf-8",
+        },
+      });
+    });
   } else {
     // In development: use Vite dev server
     const { setupVite } = await import("./vite");
     await setupVite(httpServer, app);
   }
 
-  // === NO httpServer.listen() ON VERCEL ===
-  // Vercel does not allow long-running servers.
-  // We only log the port in local dev so you can see it.
+  // Only start listening in local development — Vercel does NOT allow this
   if (process.env.NODE_ENV !== "production" && !process.env.VERCEL) {
     const port = parseInt(process.env.PORT || "5000", 10);
     httpServer.listen(port, "0.0.0.0", () => {
