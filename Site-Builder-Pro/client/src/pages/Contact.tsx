@@ -1,7 +1,6 @@
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { api, type InsertContactMessage } from "@shared/routes";
-import { useContact } from "@/hooks/use-contact";
 import { Form, FormControl, FormField, FormItem, FormLabel, FormMessage } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -10,8 +9,6 @@ import { SectionHeader } from "@/components/SectionHeader";
 import { Mail } from "lucide-react";
 
 export default function Contact() {
-  const mutation = useContact();
-  
   const form = useForm<InsertContactMessage>({
     resolver: zodResolver(api.contact.submit.input),
     defaultValues: {
@@ -21,12 +18,22 @@ export default function Contact() {
     }
   });
 
-  function onSubmit(data: InsertContactMessage) {
-    mutation.mutate(data, {
-      onSuccess: () => {
-        form.reset();
-      }
-    });
+  async function onSubmit(data: InsertContactMessage) {
+    try {
+      const res = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(data),
+      });
+
+      if (!res.ok) throw new Error("Failed to send message");
+
+      alert("Message sent successfully!");
+      form.reset();
+    } catch (err) {
+      console.error(err);
+      alert("Failed to send message. Please try again.");
+    }
   }
 
   return (
@@ -52,13 +59,6 @@ export default function Contact() {
                   </div>
                 </div>
               </div>
-            </div>
-
-            <div className="bg-white p-6 rounded-lg border border-border shadow-sm">
-              <h4 className="font-serif font-bold text-primary mb-2">Intermediaries</h4>
-              <p className="text-sm text-muted-foreground">
-                We value relationships with business brokers, CPAs, and attorneys. We are open to discussing fair arrangements for introduced opportunities, with terms that reflect the size and nature of the business.
-              </p>
             </div>
           </div>
 
@@ -117,9 +117,8 @@ export default function Contact() {
                   <Button 
                     type="submit" 
                     className="w-full h-12 text-lg font-serif bg-primary text-primary-foreground hover:bg-primary/90"
-                    disabled={mutation.isPending}
                   >
-                    {mutation.isPending ? "Sending..." : "Send Message"}
+                    Send Message
                   </Button>
                 </form>
               </Form>
