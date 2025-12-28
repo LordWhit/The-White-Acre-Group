@@ -33,17 +33,24 @@ export function Navigation() {
       )}
     >
       <div className="container-padding flex items-center justify-between">
-        <Link href="/" className="group flex items-center gap-2">
-          {/* Simple Logo Mark */}
-          <div className="h-8 w-8 bg-primary text-white flex items-center justify-center font-serif font-bold text-xl rounded-sm">
-            A
+        <Link href="/" className="group flex flex-col items-start gap-0">
+          {/* Logo Mark - Keeping the simple "A" for now, or change to "S" if you prefer */}
+          <div className="flex items-center gap-3">
+            <div className="h-10 w-10 bg-primary text-white flex items-center justify-center font-serif font-bold text-2xl rounded-sm">
+              S
+            </div>
+            <div>
+              <span className={cn(
+                "font-serif text-2xl font-bold tracking-tight transition-colors",
+                scrolled ? "text-primary" : "text-primary"
+              )}>
+                Shepherd Manufacturing
+              </span>
+              <p className="text-xs text-muted-foreground -mt-1">
+                A White Acre Group Company
+              </p>
+            </div>
           </div>
-          <span className={cn(
-            "font-serif text-xl font-bold tracking-tight transition-colors",
-            scrolled ? "text-primary" : "text-primary" 
-          )}>
-            Acquire & Steward
-          </span>
         </Link>
 
         {/* Desktop Nav */}
@@ -54,8 +61,8 @@ export function Navigation() {
               href={link.href}
               className={cn(
                 "text-sm font-medium transition-colors hover:text-primary relative py-1",
-                location === link.href 
-                  ? "text-primary font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-primary" 
+                location === link.href
+                  ? "text-primary font-semibold after:absolute after:bottom-0 after:left-0 after:w-full after:h-px after:bg-primary"
                   : "text-muted-foreground"
               )}
             >
@@ -63,7 +70,7 @@ export function Navigation() {
             </Link>
           ))}
           <Link href="/contact">
-            <Button 
+            <Button
               className="font-serif ml-4 bg-primary text-primary-foreground hover:bg-primary/90"
             >
               Contact Us
