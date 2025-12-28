@@ -12,7 +12,7 @@ export default function Home() {
   <div className="absolute inset-0 z-0 opacity-20">
     <img
       src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" alt="Modern architecture looking up" className="w-full h-full object-cover"
-      alt="CNC machine cutting metal"
+      alt="Modern architecture looking up"
       className="w-full h-full object-cover"
     />
   </div>
