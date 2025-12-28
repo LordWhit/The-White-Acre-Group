@@ -1,28 +1,30 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
 import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "./routes";
-import { serveStatic } from "./static";
-import { createServer } from "http";
+import { registerRoutes } from "../routes";        // Adjust path if routes is elsewhere
+import { serveStatic } from "../static";            // Adjust path if static is elsewhere
+import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const app = express();
-const httpServer = createServer(app);
 
-declare module "http" {
-  interface IncomingMessage {
-    rawBody: unknown;
+// Trust Vercel’s proxy (required for correct IP, etc.)
+app.set("trust proxy", true);
+
+declare module "express-serve-static-core" {
+  interface Request {
+    rawBody?: Buffer;
   }
 }
 
 app.use(
   express.json({
     verify: (req, _res, buf) => {
-      req.rawBody = buf;
+      (req as any).rawBody = buf;
     },
-  }),
+  })
 );
 
 app.use(express.urlencoded({ extended: false }));
 
+// Simple logging middleware
 export function log(message: string, source = "express") {
   const formattedTime = new Date().toLocaleTimeString("en-US", {
     hour: "numeric",
@@ -30,7 +32,6 @@ export function log(message: string, source = "express") {
     second: "2-digit",
     hour12: true,
   });
-
   console.log(`${formattedTime} [${source}] ${message}`);
 }
 
@@ -52,7 +53,6 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-
       log(logLine);
     }
   });
@@ -60,40 +60,40 @@ app.use((req, res, next) => {
   next();
 });
 
+// Main setup
 (async () => {
+  // Create a fake httpServer object just to keep registerRoutes happy
+  // (it only needs addListener for WebSocket upgrades if you use them)
+  const httpServer = {
+    addListener: () => {},
+    on: () => {},
+    removeListener: () => {},
+  } as any;
+
   await registerRoutes(httpServer, app);
 
+  // Global error handler
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
-
     res.status(status).json({ message });
-    throw err;
   });
 
-  // importantly only setup vite in development and after
-  // setting up all the other routes so the catch-all route
-  // doesn't interfere with the other routes
-  if (process.env.NODE_ENV === "production") {
+  // In production on Vercel: serve the built static files
+  // (your serveStatic function should do express.static('dist') or similar)
+  if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
     serveStatic(app);
-  } else {
-    const { setupVite } = await import("./vite");
-    await setupVite(httpServer, app);
   }
 
-  // ALWAYS serve the app on the port specified in the environment variable PORT
-  // Other ports are firewalled. Default to 5000 if not specified.
-  // this serves both the API and the client.
-  // It is the only port that is not firewalled.
-  const port = parseInt(process.env.PORT || "5000", 10);
-  httpServer.listen(
-    {
-      port,
-      host: "0.0.0.0",
-      reusePort: true,
-    },
-    () => {
-      log(`serving on port ${port}`);
-    },
-  );
+  // Add a catch-all route for React Router (important!)
+  app.get("*", (req, res) => {
+    res.sendFile("index.html", { root: "dist" });
+  });
 })();
+
+// Export as Vercel serverless function — THIS IS THE KEY PART
+export default async function handler(req: VercelRequest, res: VercelResponse) {
+  // Vercel re-uses the app instance across invocations
+  // So we just forward the request to Express
+  await app(req, res);
+}
