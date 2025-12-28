@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Button } from "@/components/ui/button";
 import { SectionHeader } from "@/components/SectionHeader";
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail } from "lucide-react";
 
 export default function Contact() {
   const mutation = useContact();
@@ -48,25 +48,7 @@ export default function Contact() {
                   <Mail className="h-5 w-5 text-accent mt-1" />
                   <div>
                     <p className="font-medium text-primary">Email</p>
-                    <p className="text-muted-foreground">inquiries@acquireandsteward.com</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <Phone className="h-5 w-5 text-accent mt-1" />
-                  <div>
-                    <p className="font-medium text-primary">Phone</p>
-                    <p className="text-muted-foreground">(555) 123-4567</p>
-                  </div>
-                </div>
-                <div className="flex items-start gap-4">
-                  <MapPin className="h-5 w-5 text-accent mt-1" />
-                  <div>
-                    <p className="font-medium text-primary">Office</p>
-                    <p className="text-muted-foreground">
-                      123 Financial District Blvd<br />
-                      Suite 400<br />
-                      New York, NY 10005
-                    </p>
+                    <p className="text-muted-foreground">info@thewhiteacregroup.com</p>
                   </div>
                 </div>
               </div>
