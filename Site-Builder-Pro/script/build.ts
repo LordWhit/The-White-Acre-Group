@@ -1,67 +1,41 @@
-import { build as esbuild } from "esbuild";
 import { build as viteBuild } from "vite";
-import { rm, readFile } from "fs/promises";
+import { build as esbuildBuild } from "esbuild";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 
-// server deps to bundle to reduce openat(2) syscalls
-// which helps cold start times
-const allowlist = [
-  "@google/generative-ai",
-  "axios",
-  "connect-pg-simple",
-  "cors",
-  "date-fns",
-  "drizzle-orm",
-  "drizzle-zod",
-  "express",
-  "express-rate-limit",
-  "express-session",
-  "jsonwebtoken",
-  "memorystore",
-  "multer",
-  "nanoid",
-  "nodemailer",
-  "openai",
-  "passport",
-  "passport-local",
-  "pg",
-  "stripe",
-  "uuid",
-  "ws",
-  "xlsx",
-  "zod",
-  "zod-validation-error",
-];
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-async function buildAll() {
-  await rm("dist", { recursive: true, force: true });
+// Remove existing dist
+if (fs.existsSync("dist")) {
+  fs.rmSync("dist", { recursive: true, force: true });
+}
 
-  console.log("building client...");
-  await viteBuild();
+// Always build the client (Vite frontend)
+await viteBuild();
 
-  console.log("building server...");
-  const pkg = JSON.parse(await readFile("package.json", "utf-8"));
-  const allDeps = [
-    ...Object.keys(pkg.dependencies || {}),
-    ...Object.keys(pkg.devDependencies || {}),
-  ];
-  const externals = allDeps.filter((dep) => !allowlist.includes(dep));
+// Only build/bundle the server if NOT on Vercel
+// (On Vercel, we want pure static deploy for the frontend)
+if (!process.env.VERCEL) {
+  const pkg = JSON.parse(fs.readFileSync("package.json", "utf-8"));
 
-  await esbuild({
+  // Server dependencies to bundle (improve cold starts)
+  const serverDeps = Object.keys(pkg.dependencies || {});
+
+  await esbuildBuild({
     entryPoints: ["server/index.ts"],
-    platform: "node",
-    bundle: true,
-    format: "cjs",
     outfile: "dist/index.cjs",
+    bundle: true,
+    platform: "node",
+    format: "cjs",
+    minify: true,
+    external: [], // Bundle everything for smaller functions if needed
     define: {
       "process.env.NODE_ENV": '"production"',
     },
-    minify: true,
-    external: externals,
-    logLevel: "info",
   });
+
+  console.log("Server bundled to dist/index.cjs");
 }
 
-buildAll().catch((err) => {
-  console.error(err);
-  process.exit(1);
-});
+console.log("Build complete!");
