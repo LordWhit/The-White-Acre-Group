@@ -8,80 +8,81 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero Section */}
-      <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-primary text-primary-foreground pt-20">
-        <div className="absolute inset-0 z-0 opacity-20">
-          <img
-            src="https://images.unsplash.com/photo-1600195077078-787173b06d1b?q=80&w=2070&auto=format&fit=crop"
-            alt="CNC machine shop"
-            className="w-full h-full object-cover"
-          />
-        </div>
-        <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/90 to-primary/80" />
+<section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-primary text-primary-foreground pt-20">
+  <div className="absolute inset-0 z-0 opacity-20">
+    <img
+      src="https://images.unsplash.com/photo-1581091215361-ab4cb6a95b08?q=80&w=2070&auto=format&fit=crop"
+      alt="CNC machine cutting metal"
+      className="w-full h-full object-cover"
+    />
+  </div>
+  <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/90 to-primary/80" />
 
-        <div className="container-padding relative z-10 flex flex-col items-center text-center max-w-4xl">
-          <motion.span
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-white/70 mb-6 border border-white/20 px-4 py-2 rounded-full"
-          >
-            Institutional Quality • Private Capital
-          </motion.span>
+  <div className="container-padding relative z-10 flex flex-col items-center text-center max-w-4xl">
+    <motion.span
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-white/70 mb-6 border border-white/20 px-4 py-2 rounded-full"
+    >
+      Institutional Quality • Private Capital
+    </motion.span>
 
-          <motion.h1
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold font-serif mb-4 text-white leading-[1.1]"
-          >
-            White Acre Manufacturing
-          </motion.h1>
+    <motion.h1
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.1 }}
+      className="text-4xl md:text-6xl lg:text-7xl font-bold font-serif mb-4 text-white leading-[1.1]"
+    >
+      White Acre Manufacturing
+    </motion.h1>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.2 }}
-            className="text-xl md:text-2xl text-white/80 mb-12 font-medium italic"
-          >
-            A White Acre Group Company
-          </motion.p>
+    <motion.p
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.2 }}
+      className="text-xl md:text-2xl text-white/80 mb-12 font-medium italic"
+    >
+      A White Acre Group Company
+    </motion.p>
 
-          <motion.p
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.3 }}
-            className="text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
-          >
-            We acquire and operate established manufacturing businesses with a
-            focus on long-term preservation, employee wellbeing, and sustainable
-            growth.
-          </motion.p>
+    <motion.p
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.3 }}
+      className="text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
+    >
+      We acquire and operate established manufacturing businesses with a
+      focus on long‑term preservation, employee wellbeing, and sustainable
+      growth.
+    </motion.p>
 
-          <motion.div
-            initial={{ opacity: 0, y: 20 }}
-            animate={{ opacity: 1, y: 0 }}
-            transition={{ delay: 0.4 }}
-            className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
-          >
-            <Link href="/business-owners">
-              <Button
-                size="lg"
-                className="bg-white text-primary hover:bg-white/90 font-serif text-lg h-14 px-8 min-w-[200px]"
-              >
-                Business Owners
-              </Button>
-            </Link>
-            <Link href="/investors">
-              <Button
-                size="lg"
-                variant="outline"
-                className="border-white/30 text-white hover:bg-white/10 font-serif text-lg h-14 px-8 min-w-[200px]"
-              >
-                Investors & Partners
-              </Button>
-            </Link>
-          </motion.div>
-        </div>
-      </section>
+    <motion.div
+      initial={{ opacity: 0, y: 20 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ delay: 0.4 }}
+      className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
+    >
+      <Link href="/business-owners">
+        <Button
+          size="lg"
+          className="bg-white text-primary hover:bg-white/90 font-serif text-lg h-14 px-8 min-w-[200px]"
+        >
+          Business Owners
+        </Button>
+      </Link>
+      <Link href="/investors">
+        <Button
+          size="lg"
+          variant="outline"
+          className="border-white/30 text-white hover:bg-white/10 font-serif text-lg h-14 px-8 min-w-[200px]"
+        >
+          Investors & Partners
+        </Button>
+      </Link>
+    </motion.div>
+  </div>
+</section>
+
 
       {/* Values Section */}
       <section className="section-padding bg-background">
