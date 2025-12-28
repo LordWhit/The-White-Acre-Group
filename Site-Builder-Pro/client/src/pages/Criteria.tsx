@@ -101,13 +101,8 @@ export default function Criteria() {
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
             {[
               "Industrial & Specialty Manufacturing",
-              "B2B & Industrial Services",
-              "Specialty Distribution",
-              "Building Products",
-              "HVAC, Plumbing & Mechanical Services",
-              "Facilities & Maintenance Services",
-              "Packaging & Industrial Consumables",
-              "Transportation & Logistics (Asset-Light)",
+              "Machining",
+              "Metal Fabrication",
             ].map((industry, i) => (
               <Card
                 key={i}
