@@ -33,7 +33,7 @@ export default function Home() {
             transition={{ delay: 0.1 }}
             className="text-4xl md:text-6xl lg:text-7xl font-bold font-serif mb-4 text-white leading-[1.1]"
           >
-            Shepherd Manufacturing
+            White Acre Manufacturing
           </motion.h1>
 
           <motion.p
