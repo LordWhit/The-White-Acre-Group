@@ -1,29 +1,34 @@
 import express from "express";
-import { registerRoutes } from "../routes";  // Change "../routes" if your routes file is in a different spot (e.g. "../server/routes")
-import { serveStatic } from "../static";    // Same — adjust if needed (e.g. "../server/static")
+import { registerRoutes } from "../server/routes";   // Fixed path
+import { serveStatic } from "../server/static";       // Fixed path
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const app = express();
 
 app.set("trust proxy", true);
 
-app.use(express.json({
-  verify: (req: any, _res, buf) => {
-    req.rawBody = buf;
-  },
-}));
+app.use(
+  express.json({
+    verify: (req: any, _res, buf) => {
+      req.rawBody = buf;
+    },
+  })
+);
+
 app.use(express.urlencoded({ extended: false }));
 
-// Your logging middleware (copy-paste it here exactly as in your original server file)
+// Logging middleware (exactly as in your original)
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
   let capturedJsonResponse: Record<string, any> | undefined = undefined;
+
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
     capturedJsonResponse = bodyJson;
     return originalResJson.apply(res, [bodyJson, ...args]);
   };
+
   res.on("finish", () => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
@@ -31,34 +36,42 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-      console.log(logLine);  // Simple log for Vercel
+      console.log(logLine);
     }
   });
+
   next();
 });
 
-// Setup routes
+// Main setup
 (async () => {
-  const fakeHttpServer = { on: () => {}, addListener: () => {} } as any;  // Fake for WebSockets if you use them
+  // Fake httpServer for registerRoutes (in case it uses WebSockets)
+  const fakeHttpServer = { on: () => {}, addListener: () => {} } as any;
+
   await registerRoutes(fakeHttpServer, app);
 
-  // Error handler
+  // Global error handler
   app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
     res.status(status).json({ message });
   });
 
-  // Serve static React files in production
+  // Serve the built React files from dist
   serveStatic(app);
 
-  // Important: Fallback for React Router (all non-API routes go to index.html)
+  // Critical fallback: serve index.html for all non-API routes (React Router)
   app.get("*", (req, res) => {
-    res.sendFile("index.html", { root: "./dist" });
+    res.sendFile("index.html", {
+      root: "dist",
+      headers: {
+        "Content-Type": "text/html; charset=utf-8",
+      },
+    });
   });
 })();
 
-// Vercel serverless export — THIS IS REQUIRED
+// Vercel serverless function handler
 export default function handler(req: VercelRequest, res: VercelResponse) {
   app(req, res);
 }
