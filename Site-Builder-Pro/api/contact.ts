@@ -1,7 +1,10 @@
 import type { NextApiRequest, NextApiResponse } from "next";
 import nodemailer from "nodemailer";
 
-type ResponseData = { success: boolean; message?: string };
+type ResponseData = {
+  success: boolean;
+  message?: string;
+};
 
 export default async function handler(
   req: NextApiRequest,
@@ -18,17 +21,18 @@ export default async function handler(
   }
 
   try {
-    // Configure the transporter
+    // Configure your SMTP transporter
     const transporter = nodemailer.createTransport({
       host: process.env.SMTP_HOST,
       port: Number(process.env.SMTP_PORT) || 587,
-      secure: false,
+      secure: false, // true for 465, false for other ports
       auth: {
         user: process.env.SMTP_USER,
         pass: process.env.SMTP_PASS,
       },
     });
 
+    // Send the email
     await transporter.sendMail({
       from: `"White Acre Group Contact" <${process.env.SMTP_USER}>`,
       to: "info@thewhiteacregroup.com",
@@ -53,4 +57,3 @@ ${message}
     return res.status(500).json({ success: false, message: "Failed to send email" });
   }
 }
-
