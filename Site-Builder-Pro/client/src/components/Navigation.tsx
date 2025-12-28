@@ -34,17 +34,17 @@ export function Navigation() {
     >
       <div className="container-padding flex items-center justify-between">
         <Link href="/" className="group flex flex-col items-start gap-0">
-          {/* Logo Mark - Keeping the simple "A" for now, or change to "S" if you prefer */}
+          {/* Logo Mark */}
           <div className="flex items-center gap-3">
             <div className="h-10 w-10 bg-primary text-white flex items-center justify-center font-serif font-bold text-2xl rounded-sm">
-              S
+              W
             </div>
             <div>
               <span className={cn(
                 "font-serif text-2xl font-bold tracking-tight transition-colors",
                 scrolled ? "text-primary" : "text-primary"
               )}>
-                Shepherd Manufacturing
+                White Acre Manufacturing
               </span>
               <p className="text-xs text-muted-foreground -mt-1">
                 A White Acre Group Company
