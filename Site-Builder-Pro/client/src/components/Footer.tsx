@@ -13,7 +13,7 @@ export function Footer() {
               </div>
               <div>
                 <span className="font-serif text-2xl font-bold tracking-tight text-white block">
-                  Shepherd Manufacturing
+                  White Acre Manufacturing
                 </span>
                 <span className="text-sm text-primary-foreground/70">
                   A White Acre Group Company
@@ -49,7 +49,7 @@ export function Footer() {
         </div>
        
         <div className="pt-8 flex flex-col md:flex-row justify-between items-center text-xs text-primary-foreground/40">
-          <p>© {new Date().getFullYear()} Shepherd Manufacturing. All rights reserved.</p>
+          <p>© {new Date().getFullYear()} White Acre Manufacturing. All rights reserved.</p>
           <div className="flex gap-6 mt-4 md:mt-0">
             <span>Privacy Policy</span>
             <span>Terms of Service</span>
