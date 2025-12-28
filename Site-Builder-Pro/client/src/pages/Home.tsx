@@ -11,7 +11,7 @@ export default function Home() {
 <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-primary text-primary-foreground pt-20">
   <div className="absolute inset-0 z-0 opacity-20">
     <img
-      src="https://unsplash.com/photos/a-machine-that-is-cutting-a-piece-of-metal-8MBTn3Z71zI"
+      src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" alt="Modern architecture looking up" className="w-full h-full object-cover""
       alt="CNC machine cutting metal"
       className="w-full h-full object-cover"
     />
