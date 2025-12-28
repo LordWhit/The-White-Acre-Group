@@ -28,28 +28,28 @@ export default function Criteria() {
             <ul className="space-y-4">
               {[
                 {
+                  label: "Revenue",
+                  value: "$750K–$5M in annual revenue",
+                },
+                {
+                  label: "Earnings",
+                  value:
+                    "Positive or near-positive EBITDA that reflects the current scale of the business",
+                },
+                {
                   label: "Cash Flow",
                   value:
-                    "Consistent, durable cash flow that supports the business and its people",
-                },
-                {
-                  label: "Size Range",
-                  value:
-                    "Typically $1.5M–$5M of EBITDA, though flexibility exists for the right situation",
-                },
-                {
-                  label: "Revenue",
-                  value: "$5M–$30M in annual revenue",
+                    "Demonstrated ability to generate cash historically, even if current performance is uneven",
                 },
                 {
                   label: "History",
                   value:
-                    "A long operating history that reflects resilience, not perfection",
+                    "Track record of prior profitability or strong operating performance",
                 },
                 {
                   label: "Financials",
                   value:
-                    "Clean enough to understand — not necessarily institutional-grade",
+                    "Understandable financials — clean enough to assess reality, not perfection",
                 },
               ].map((item, i) => (
                 <li
@@ -76,9 +76,9 @@ export default function Criteria() {
               {[
                 "Provides essential products or services with repeat demand",
                 "Straightforward business model that can be clearly understood",
-                "Low dependence on any single customer, supplier, or individual",
-                "Reasonable capital requirements relative to cash generation",
-                "Employees and management who materially contribute to success",
+                "Core business economics that have worked historically",
+                "Issues that are operational, situational, or transitional — not structural",
+                "Employees and leadership who materially contribute to long-term value",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
                   <div className="mt-1 h-5 w-5 bg-accent/10 rounded-full flex items-center justify-center shrink-0">
@@ -98,7 +98,9 @@ export default function Criteria() {
             centered
             className="mb-12"
           />
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+
+          {/* Centered grid */}
+          <div className="grid grid-cols-1 sm:grid-cols-3 gap-6 max-w-3xl mx-auto">
             {[
               "Industrial & Specialty Manufacturing",
               "Machining",
@@ -124,12 +126,12 @@ export default function Criteria() {
             </h3>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4">
               {[
-                "Venture-backed or pre-profit businesses",
-                "Financially engineered turnarounds",
+                "Venture-backed or pre-revenue businesses",
+                "Structurally broken business models",
                 "Highly speculative or binary-outcome industries",
                 "Retail, restaurants, or consumer trend-driven models",
-                "Businesses dependent on constant refinancing or SBA leverage",
-                "Pure project-based work with no customer continuity",
+                "Deals dependent on aggressive financial engineering or leverage",
+                "Problems that cannot be solved through operations and leadership",
               ].map((item, i) => (
                 <div key={i} className="flex items-center gap-3">
                   <X className="h-5 w-5 text-destructive shrink-0" />
@@ -143,10 +145,10 @@ export default function Criteria() {
         {/* Closing Philosophy */}
         <div className="mt-20 max-w-3xl mx-auto text-center">
           <p className="text-lg text-muted-foreground leading-relaxed">
-            Above all, we care about whether a business truly works — for its
-            customers, its employees, and its owner. Every situation is unique,
-            and we are open to thoughtful, creative structures that reflect
-            reality rather than forcing a deal into a predefined box.
+            We are comfortable stepping into complex situations when the
+            underlying business is sound. A temporary rough patch does not
+            disqualify a great company — poor fundamentals do. Our focus is on
+            long-term stewardship, not short-term optics.
           </p>
         </div>
       </section>
