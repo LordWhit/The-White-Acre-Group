@@ -10,47 +10,56 @@ export default function Home() {
       {/* Hero Section */}
       <section className="relative min-h-[90vh] flex items-center justify-center overflow-hidden bg-primary text-primary-foreground pt-20">
         <div className="absolute inset-0 z-0 opacity-20">
-           {/* Abstract architectural background */}
-           <img 
-            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop" 
+          {/* Abstract architectural background */}
+          <img
+            src="https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?q=80&w=2070&auto=format&fit=crop"
             alt="Modern architecture looking up"
             className="w-full h-full object-cover"
           />
         </div>
         <div className="absolute inset-0 z-0 bg-gradient-to-b from-primary/90 to-primary/80" />
-        
+       
         <div className="container-padding relative z-10 flex flex-col items-center text-center max-w-4xl">
-          <motion.span 
+          <motion.span
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             className="text-xs md:text-sm font-bold tracking-[0.2em] uppercase text-white/70 mb-6 border border-white/20 px-4 py-2 rounded-full"
           >
             Institutional Quality • Private Capital
           </motion.span>
-          
-          <motion.h1 
+         
+          <motion.h1
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="text-4xl md:text-6xl lg:text-7xl font-bold font-serif mb-8 text-white leading-[1.1]"
+            className="text-4xl md:text-6xl lg:text-7xl font-bold font-serif mb-4 text-white leading-[1.1]"
           >
-            Stewarding Legacy Through <span className="text-gray-300 italic font-light">Discipline</span> & Care
+            Shepherd Manufacturing
           </motion.h1>
           
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
+            className="text-xl md:text-2xl text-white/80 mb-12 font-medium italic"
           >
-            We acquire and operate established businesses with a focus on long-term preservation, 
-            employee wellbeing, and sustainable growth.
+            A White Acre Group Company
           </motion.p>
-          
-          <motion.div 
+         
+          <motion.p
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
+            className="text-lg md:text-xl text-white/70 max-w-2xl mb-12 leading-relaxed"
+          >
+            We acquire and operate established manufacturing businesses with a focus on long-term preservation,
+            employee wellbeing, and sustainable growth.
+          </motion.p>
+         
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.4 }}
             className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto"
           >
             <Link href="/business-owners">
@@ -88,7 +97,7 @@ export default function Home() {
                 description: "Unlike private equity firms with 5-year clocks, we hold indefinitely. We make decisions for the next generation, not the next quarter."
               }
             ].map((feature, i) => (
-              <motion.div 
+              <motion.div
                 key={i}
                 initial={{ opacity: 0, y: 20 }}
                 whileInView={{ opacity: 1, y: 0 }}
@@ -110,12 +119,12 @@ export default function Home() {
         <div className="container-padding">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
             <div>
-              <SectionHeader 
+              <SectionHeader
                 label="What We Look For"
-                title="Established, Profitable, Essential Businesses"
-                description="We focus on simple, understandable businesses in fragmented industries. We prefer industrial, manufacturing, and business services sectors."
+                title="Established, Profitable, Essential Manufacturing Businesses"
+                description="We focus on industrial manufacturing, structural steel fabrication, and related services in fragmented markets."
               />
-              
+             
               <ul className="space-y-4 mb-8">
                 {[
                   "$1.5M - $5M EBITDA",
@@ -130,19 +139,19 @@ export default function Home() {
                   </li>
                 ))}
               </ul>
-              
+             
               <Link href="/criteria">
                 <Button variant="link" className="p-0 text-primary font-semibold text-lg hover:text-accent transition-colors group">
                   View Full Criteria <ArrowRight className="ml-2 h-4 w-4 group-hover:translate-x-1 transition-transform" />
                 </Button>
               </Link>
             </div>
-            
+           
             <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
-               {/* Industrial warehouse interior shot - clean and professional */}
-              <img 
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop" 
-                alt="Industrial facility interior"
+              {/* Industrial facility interior */}
+              <img
+                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
+                alt="Modern manufacturing facility"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
