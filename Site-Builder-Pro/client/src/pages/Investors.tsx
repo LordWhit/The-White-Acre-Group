@@ -30,8 +30,8 @@ export default function Investors() {
             },
             {
               icon: PieChart,
-              title: "Direct Alignment",
-              desc: "We invest significant personal capital in every deal. We only make money when our investors make money."
+              title: "Aligned Incentives",
+              desc: "We structure opportunities so that interests between owners, operators, and investors are aligned. We focus on transparency, realistic returns, and long-term value creation."
             }
           ].map((item, i) => (
             <div key={i} className="bg-white p-8 border border-border rounded-lg shadow-sm">
