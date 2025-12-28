@@ -178,8 +178,8 @@ export default function Home() {
 
             <div className="relative h-[500px] rounded-lg overflow-hidden shadow-xl">
               <img
-                src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&w=2070&auto=format&fit=crop"
-                alt="Manufacturing facility"
+                src="https://images.unsplash.com/photo-1616627455747-9c30206a5c6a?q=80&w=2070&auto=format&fit=crop"
+                alt="CNC machining operation"
                 className="w-full h-full object-cover"
               />
               <div className="absolute inset-0 bg-primary/10 mix-blend-multiply" />
