@@ -7,7 +7,7 @@ export function Footer() {
         <div className="grid grid-cols-1 md:grid-cols-4 gap-12 border-b border-primary-foreground/10 pb-16">
           <div className="md:col-span-1">
             <Link href="/" className="flex items-center gap-3 mb-6">
-              {/* Updated logo mark to "S" for Shepherd */}
+              {/* Logo mark updated to "S" */}
               <div className="h-10 w-10 bg-white text-primary flex items-center justify-center font-serif font-bold text-2xl rounded-sm">
                 S
               </div>
@@ -44,12 +44,6 @@ export function Footer() {
             <h4 className="font-serif text-lg font-medium mb-6 text-white">Contact</h4>
             <ul className="space-y-3 text-sm text-primary-foreground/60">
               <li>info@thewhiteacregroup.com</li>
-              <li>(555) 123-4567</li>
-              <li>
-                123 Financial District Blvd<br />
-                Suite 400<br />
-                New York, NY 10005
-              </li>
             </ul>
           </div>
         </div>
