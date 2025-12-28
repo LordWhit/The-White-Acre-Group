@@ -1,51 +1,29 @@
-import express, { type Request, Response, NextFunction } from "express";
-import { registerRoutes } from "../routes";        // Adjust path if routes is elsewhere
-import { serveStatic } from "../static";            // Adjust path if static is elsewhere
+import express from "express";
+import { registerRoutes } from "../routes";  // Change "../routes" if your routes file is in a different spot (e.g. "../server/routes")
+import { serveStatic } from "../static";    // Same — adjust if needed (e.g. "../server/static")
 import type { VercelRequest, VercelResponse } from "@vercel/node";
 
 const app = express();
 
-// Trust Vercel’s proxy (required for correct IP, etc.)
 app.set("trust proxy", true);
 
-declare module "express-serve-static-core" {
-  interface Request {
-    rawBody?: Buffer;
-  }
-}
-
-app.use(
-  express.json({
-    verify: (req, _res, buf) => {
-      (req as any).rawBody = buf;
-    },
-  })
-);
-
+app.use(express.json({
+  verify: (req: any, _res, buf) => {
+    req.rawBody = buf;
+  },
+}));
 app.use(express.urlencoded({ extended: false }));
 
-// Simple logging middleware
-export function log(message: string, source = "express") {
-  const formattedTime = new Date().toLocaleTimeString("en-US", {
-    hour: "numeric",
-    minute: "2-digit",
-    second: "2-digit",
-    hour12: true,
-  });
-  console.log(`${formattedTime} [${source}] ${message}`);
-}
-
+// Your logging middleware (copy-paste it here exactly as in your original server file)
 app.use((req, res, next) => {
   const start = Date.now();
   const path = req.path;
   let capturedJsonResponse: Record<string, any> | undefined = undefined;
-
   const originalResJson = res.json;
   res.json = function (bodyJson, ...args) {
     capturedJsonResponse = bodyJson;
     return originalResJson.apply(res, [bodyJson, ...args]);
   };
-
   res.on("finish", () => {
     const duration = Date.now() - start;
     if (path.startsWith("/api")) {
@@ -53,47 +31,34 @@ app.use((req, res, next) => {
       if (capturedJsonResponse) {
         logLine += ` :: ${JSON.stringify(capturedJsonResponse)}`;
       }
-      log(logLine);
+      console.log(logLine);  // Simple log for Vercel
     }
   });
-
   next();
 });
 
-// Main setup
+// Setup routes
 (async () => {
-  // Create a fake httpServer object just to keep registerRoutes happy
-  // (it only needs addListener for WebSocket upgrades if you use them)
-  const httpServer = {
-    addListener: () => {},
-    on: () => {},
-    removeListener: () => {},
-  } as any;
+  const fakeHttpServer = { on: () => {}, addListener: () => {} } as any;  // Fake for WebSockets if you use them
+  await registerRoutes(fakeHttpServer, app);
 
-  await registerRoutes(httpServer, app);
-
-  // Global error handler
-  app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
+  // Error handler
+  app.use((err: any, _req: express.Request, res: express.Response, _next: express.NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
     res.status(status).json({ message });
   });
 
-  // In production on Vercel: serve the built static files
-  // (your serveStatic function should do express.static('dist') or similar)
-  if (process.env.NODE_ENV === "production" || process.env.VERCEL) {
-    serveStatic(app);
-  }
+  // Serve static React files in production
+  serveStatic(app);
 
-  // Add a catch-all route for React Router (important!)
+  // Important: Fallback for React Router (all non-API routes go to index.html)
   app.get("*", (req, res) => {
-    res.sendFile("index.html", { root: "dist" });
+    res.sendFile("index.html", { root: "./dist" });
   });
 })();
 
-// Export as Vercel serverless function — THIS IS THE KEY PART
-export default async function handler(req: VercelRequest, res: VercelResponse) {
-  // Vercel re-uses the app instance across invocations
-  // So we just forward the request to Express
-  await app(req, res);
+// Vercel serverless export — THIS IS REQUIRED
+export default function handler(req: VercelRequest, res: VercelResponse) {
+  app(req, res);
 }
