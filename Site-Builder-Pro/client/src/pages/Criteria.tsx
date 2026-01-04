@@ -12,7 +12,7 @@ export default function Criteria() {
             light
             label="Investment Focus"
             title="How We Evaluate Businesses"
-            description="We look for real companies doing real work — businesses that have proven themselves over time, serve essential needs, and are built to last beyond their current owner."
+            description="We look for real companies doing real work, businesses that have proven themselves over time, serve essential needs, and are built to last beyond their current owner."
           />
         </div>
       </section>
@@ -49,7 +49,7 @@ export default function Criteria() {
                 {
                   label: "Financials",
                   value:
-                    "Understandable financials — clean enough to assess reality, not perfection",
+                    "Understandable financials, clean enough to assess reality, not perfection",
                 },
               ].map((item, i) => (
                 <li
@@ -77,7 +77,7 @@ export default function Criteria() {
                 "Provides essential products or services with repeat demand",
                 "Straightforward business model that can be clearly understood",
                 "Core business economics that have worked historically",
-                "Issues that are operational, situational, or transitional — not structural",
+                "Issues that are operational, situational, or transitional, not structural",
                 "Employees and leadership who materially contribute to long-term value",
               ].map((item, i) => (
                 <li key={i} className="flex items-start gap-3">
@@ -147,7 +147,7 @@ export default function Criteria() {
           <p className="text-lg text-muted-foreground leading-relaxed">
             We are comfortable stepping into complex situations when the
             underlying business is sound. A temporary rough patch does not
-            disqualify a great company — poor fundamentals do. Our focus is on
+            disqualify a great company, poor fundamentals do. Our focus is on
             long-term stewardship, not short-term optics.
           </p>
         </div>
