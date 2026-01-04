@@ -122,7 +122,7 @@ export default function Home() {
               <SectionHeader
                 label="What We Look For"
                 title="Durable Businesses Built on Real Work"
-                description="We focus on companies with substance — businesses that have stood the test of time, serve real customers, and are run by people who care about what they’ve built."
+                description="We focus on companies with substance, businesses that have stood the test of time, serve real customers, and are run by people who care about what they’ve built."
               />
               <ul className="space-y-4 mb-8">
                 {[
@@ -139,7 +139,7 @@ export default function Home() {
                 ))}
               </ul>
               <p className="text-muted-foreground text-lg leading-relaxed max-w-xl mb-6">
-                We are less concerned with financial engineering and more focused on whether a business truly works — operationally, culturally, and economically. Every situation is different, and we are open to creative, fair structures that align incentives and protect what matters.
+                We are less concerned with financial engineering and more focused on whether a business truly works, operationally, culturally, and economically. Every situation is different, and we are open to creative, fair structures that align incentives and protect what matters.
               </p>
               <Link href="/criteria">
                 <Button
